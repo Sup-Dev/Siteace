@@ -52,7 +52,7 @@ if (Meteor.isClient) {
 			// example of how you can access the id for the website in the database
 			// (this is the data context for the template)
 			var website_id = this._id;
-			console.log("Up voting website with id "+website_id);
+			//console.log("Up voting website with id "+website_id);
 			// put the code in here to add a vote to a website!
             if (Meteor.user()) {
                 Websites.update(this._id, {
@@ -66,7 +66,7 @@ if (Meteor.isClient) {
 			// example of how you can access the id for the website in the database
 			// (this is the data context for the template)
 			var website_id = this._id;
-			console.log("Down voting website with id "+website_id);
+			//console.log("Down voting website with id "+website_id);
 
 			// put the code in here to remove a vote from a website!
             if (Meteor.user()) {
@@ -88,7 +88,7 @@ if (Meteor.isClient) {
 			var url = event.target.url.value;
 			var title = event.target.title.value;
 			var description = event.target.description.value;
-			console.log("The url they entered is: " + url + " " + title + " " + description);
+			//console.log("The url they entered is: " + url + " " + title + " " + description);
 			
 			//  put your website saving code in here!	
 			if (Meteor.user()) {
@@ -105,6 +105,21 @@ if (Meteor.isClient) {
 
 		}
 	});
+
+    Template.detail.events({
+       "submit .js-save-comment-form":function(event){
+           var comment = event.target.comment.value;
+           //console.log("The comment they entered is: " + comment);
+
+           if (Meteor.user()) {
+               Websites.update(this._id, {
+                    $push: {comments: comment}
+               });
+           }
+
+           return false;
+       }
+    });
 }
 
 

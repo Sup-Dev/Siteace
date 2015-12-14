@@ -15,6 +15,18 @@ if (Meteor.isClient) {
         });
     });
 
+    Router.route('/detail/:_id', function () {
+        this.render('navbar', {
+            to:"navbar"
+        });
+        this.render('detail', {
+            to:"main",
+            data:function() {
+                return Websites.findOne({_id:this.params._id});
+            }
+        });
+    });
+
 	Accounts.ui.config({
 		passwordSignupFields: "USERNAME_AND_EMAIL"
 	});

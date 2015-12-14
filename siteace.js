@@ -38,6 +38,7 @@ if (Meteor.isClient) {
 	// helper function that returns all available websites
 	Template.website_list.helpers({
 		websites:function(){
+            var search_key = Session.get("search_key");
 			return Websites.find({}, {sort: {upvote: -1, downvote: 1}});
 		}
 	});
@@ -117,6 +118,14 @@ if (Meteor.isClient) {
                });
            }
 
+           return false;
+       }
+    });
+
+    Template.navbar.events({
+       "submit .js-search-form":function(event){
+            Session.set("search_key", event.target.searchValue.value);
+            console.log("The session data is: " + Session.get("search_key"));
            return false;
        }
     });

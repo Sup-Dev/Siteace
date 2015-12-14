@@ -13,7 +13,7 @@ if (Meteor.isClient) {
 	// helper function that returns all available websites
 	Template.website_list.helpers({
 		websites:function(){
-			return Websites.find({});
+			return Websites.find({}, {sort: {upvote: -1, downvote: 1}});
 		}
 	});
 
@@ -29,7 +29,11 @@ if (Meteor.isClient) {
 			var website_id = this._id;
 			console.log("Up voting website with id "+website_id);
 			// put the code in here to add a vote to a website!
-
+            if (Meteor.user()) {
+                Websites.update(this._id, {
+                    $inc: {upvote: 1}
+                });
+            }
 			return false;// prevent the button from reloading the page
 		}, 
 		"click .js-downvote":function(event){
@@ -40,7 +44,11 @@ if (Meteor.isClient) {
 			console.log("Down voting website with id "+website_id);
 
 			// put the code in here to remove a vote from a website!
-
+            if (Meteor.user()) {
+                Websites.update(this._id, {
+                    $inc: {downvote: 1}
+                });
+            }
 			return false;// prevent the button from reloading the page
 		}
 	})

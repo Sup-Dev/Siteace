@@ -53,10 +53,21 @@ if (Meteor.isClient) {
 
 			// here is an example of how to get the url out of the form:
 			var url = event.target.url.value;
-			console.log("The url they entered is: "+url);
+			var title = event.target.title.value;
+			var description = event.target.description.value;
+			console.log("The url they entered is: " + url + " " + title + " " + description);
 			
 			//  put your website saving code in here!	
-
+			if (Meteor.user()) {
+                Websites.insert({
+					url: url,
+					title: title,
+                    description: description,
+					createdOn: new Date(),
+					createdBy: Meteor.user()._id
+				});
+			}
+			$("#website_form").toggle('slow');
 			return false;// stop the form submit from reloading the page
 
 		}

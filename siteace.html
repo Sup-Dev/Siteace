@@ -3,6 +3,16 @@
 </head>
 
 <body>
+
+
+</body>
+
+<template name="ApplicationLayout">
+    {{> yield "navbar"}}
+    {{> yield "main"}}
+</template>
+
+<template name="navbar">
     <!-- navbar  - you will be putting the login functions here -->
     <nav class="navbar navbar-default">
         <div class="container">
@@ -16,13 +26,14 @@
             </div>
         </div>
     </nav>
+</template>
 
+<template name="index">
     <div class="container">
         {{> website_form}}
         {{> website_list}}
     </div>
-</body>
-
+</template>
 
 <template name="website_form">
     {{#if currentUser }}
@@ -75,6 +86,9 @@
         <a href="#" class="btn btn-default js-downvote">
             <span class="glyphicon glyphicon-arrow-down" aria-hidden="true">{{downvote}}</span>
         </a>
+        <p>
+            {{createdOn}}
+        </p>
         <!-- you will be putting your up and down vote buttons in here! -->
     </li>
 </template>
